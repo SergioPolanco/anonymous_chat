@@ -3,7 +3,7 @@ import { Alert, View, StyleSheet, Text, Image, TouchableHighlight } from 'react-
 import { Icon } from 'react-native-elements'
 export default class ChatListItem extends Component{
     state={
-        marked: false
+        marked: !this.props.clearMark
     }
     _onPressChatItem(){
         Alert.alert(

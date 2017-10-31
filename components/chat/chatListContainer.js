@@ -102,7 +102,6 @@ export default class ChatListContainer extends Component{
                                     this.setState({
                                         markedMessages: []
                                     })
-                                    console.log(this)
                                 }}
                             />
                         </View>
@@ -157,21 +156,20 @@ export default class ChatListContainer extends Component{
                     </View>
                     
                 }
-                <ScrollView contentContainerStyle={styles.contentChatsContainer}>
                 <FlatList
                     style={styles.containerChatList}
                     data={dummyChatList}
+                    extraData={this.state}
                     renderItem={({item}) => (
                         <ChatListItem 
                             userName={item.userName} 
                             content={item.content} 
                             date={item.date}
-                            ref={instance => { this.child = instance; }}
+                            clearMark={this.state.markedMessages.length == 0 ? true: false}
                             onLongPress={(userName)=>this._onLongPressChatItem(userName)}
                         />
                     )}
                 />
-                </ScrollView>
             </View>
         )
     }
@@ -216,9 +214,6 @@ const styles = StyleSheet.create({
     },
     containerChatList:{
         flex: 1,
-        backgroundColor: "#fff"
-    },
-    contentChatsContainer: {
         backgroundColor: "#fff"
     },
     boxSearch:{
