@@ -34,7 +34,7 @@ export default class Home extends PureComponent {
     '1': ChatListRoute,
     '2': GroupListRoute,
     '3': ConfigRoute
-  }); 
+  });
 
   render() {
     return (
@@ -43,12 +43,12 @@ export default class Home extends PureComponent {
                 <Text style={styles.titleHeader}>
                     Anonymous Chat
                 </Text>
-                <Button
+                {/* <Button
                     onPress={() => this.props.navigation.navigate("ChatDetail")}
                     title="Learn More"
                     color="#841584"
                     accessibilityLabel="Learn more about this purple button"
-                />
+                /> */}
             </View>
             <TabViewAnimated
                 style={styles.container}

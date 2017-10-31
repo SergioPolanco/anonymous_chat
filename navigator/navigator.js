@@ -3,14 +3,6 @@ import { StackNavigator } from 'react-navigation';
 import Home from '../screens/home'
 import ChatDetail from '../screens/chatDetail'
 
-/* const HomeScreen = () => (
-    <Home/>
-);
-  
-const ChatDetailScreen = () => (
-    <ChatDetail/>
-); */
-
 const RootNavigator = StackNavigator(
     {
         Home: {
