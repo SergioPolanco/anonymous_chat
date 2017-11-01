@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
-import { Alert, View, StyleSheet, Text, ScrollView, FlatList, TextInput } from 'react-native';
+import {
+    Vibration,
+    Alert,  
+    View, 
+    StyleSheet, 
+    Text,
+    FlatList, 
+    TextInput 
+} from 'react-native';
 import { Icon } from 'react-native-elements'
 import ChatListItem from './chatListItem';
+import FadeInView from '../utils/fadeInView'
 import uuid from 'uuid';
 //import IconVector from 'react-native-vector-icons/FontAwesome';
 var dummyChatList = [
@@ -92,22 +101,22 @@ export default class ChatListContainer extends Component{
                         >
                         </TextInput>
                     </View>:
-                    <View style={styles.containerActionsBox}>
+                    <FadeInView duration={ 500 } style={styles.containerActionsBox}>
                         <View style={styles.containerIconCloseActionBox}>
                             <Icon
-                                name='times'
+                                name='long-arrow-left'
                                 type='font-awesome'
-                                color='#E57373'
+                                color='#2196F3'
                                 onPress={()=>{
                                     this.setState({
                                         markedMessages: []
                                     })
+                                    Vibration.vibrate(500)
                                 }}
                             />
                         </View>
                         <View style={styles.containerIconsActionsBox}>
                             <Icon
-                                raised
                                 name='thumb-tack'
                                 type='font-awesome'
                                 color='#2196F3'
@@ -122,10 +131,9 @@ export default class ChatListContainer extends Component{
                                 }} 
                             />
                             <Icon
-                                raised
                                 name='eye-slash'
                                 type='font-awesome'
-                                color='#9E9E9E'
+                                color='#2196F3'
                                 onPress={() => {
                                     let message = this.state.markedMessages.length == 1 ?
                                         "Just marked as not viewed the conversation with " + this.state.markedMessages.join():
@@ -138,10 +146,9 @@ export default class ChatListContainer extends Component{
                                 }} 
                             />
                             <Icon
-                                raised
                                 name='trash'
                                 type='font-awesome'
-                                color='#F44336'
+                                color='#2196F3'
                                 onPress={() => {
                                     let message = this.state.markedMessages.length == 1 ?
                                         "Just deleted the conversation with " + this.state.markedMessages.join():
@@ -153,7 +160,7 @@ export default class ChatListContainer extends Component{
                                 }} 
                             />
                         </View>
-                    </View>
+                    </FadeInView>
                     
                 }
                 <FlatList
@@ -185,7 +192,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     containerIconsActionsBox:{
-        flex: 4,
+        flex: 1,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between"
@@ -196,8 +203,12 @@ const styles = StyleSheet.create({
         paddingRight: 20,
         paddingTop: 10,
         paddingBottom: 10,
-        flexDirection: "row"
-        
+        flexDirection: "row",
+        borderBottomWidth: 2,
+        borderBottomColor: "#2196F3",
+        elevation: 4,
+        shadowColor: 'black',
+        shadowOpacity: 0.1,
     },
     containerSearchBox:{
         backgroundColor: "#fff",

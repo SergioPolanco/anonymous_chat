@@ -28,7 +28,7 @@ export default class Home extends PureComponent {
 
   _handleIndexChange = index => this.setState({ index });
 
-  _renderHeader = props => <TabBar {...props} />;
+  _renderHeader = props => <TabBar indicatorStyle={{ backgroundColor: "#fff" }} {...props} />;
 
   _renderScene = SceneMap({
     '1': ChatListRoute,

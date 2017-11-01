@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, View, StyleSheet, Text, Image, TouchableHighlight } from 'react-native';
+import { Vibration, Alert, View, StyleSheet, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements'
 export default class ChatListItem extends Component{
     state={
@@ -19,11 +19,12 @@ export default class ChatListItem extends Component{
         this.setState({
             marked: true
         })
+        Vibration.vibrate(500)
         this.props.onLongPress(this.props.userName);       
     }
     render(){
         return(
-            <View style={styles.boxChatItem}>
+            <View style={[styles.boxChatItem, {backgroundColor: this.state.marked ? "rgba(0,0,0,0.04)": "rgba(255,255,255,1)"}]}>
                 <View style={styles.imgBoxChatItem}>
                     <View style={styles.containerImageUserIcon}>
                         <Image
@@ -32,11 +33,10 @@ export default class ChatListItem extends Component{
                         />
                     </View>
                 </View>
-                <TouchableHighlight 
+                <TouchableOpacity
                     style={styles.TouchableChatItemArea} 
                     onPress={this._onPressChatItem.bind(this)}
                     onLongPress={this._onLongPressChatItem.bind(this)}
-                    underlayColor="white"
                 >
                     <View style={styles.containerMessageInfo}>
                         <View style={styles.contentBoxChatItem}>
@@ -65,7 +65,7 @@ export default class ChatListItem extends Component{
                             </Text>
                         </View> 
                     </View>
-                </TouchableHighlight> 
+                </TouchableOpacity> 
             </View>
         )
     }
@@ -101,14 +101,14 @@ const styles = StyleSheet.create({
     },
     contentBoxChatItem:{
         flex: 4,
-        marginBottom: 5
+        marginBottom: 10
     },
     dateBoxChatItem: {
         flex: 1
     },
     containerImageUserIcon:{
-        width: 45,
-        height: 45,
+        width: 50,
+        height: 50,
         borderWidth: 1,
         borderColor: "#9E9E9E",
         borderRadius: 100/2,
