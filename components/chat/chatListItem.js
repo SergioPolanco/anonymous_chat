@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Vibration, Alert, View, StyleSheet, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements'
+import { Icon, Avatar } from 'react-native-elements'
 export default class ChatListItem extends Component{
     state={
         marked: !this.props.clearMark
@@ -19,7 +19,7 @@ export default class ChatListItem extends Component{
         this.setState({
             marked: true
         })
-        Vibration.vibrate(500)
+        Vibration.vibrate(100)
         this.props.onLongPress(this.props.userName);       
     }
     render(){
@@ -32,6 +32,7 @@ export default class ChatListItem extends Component{
                             source={require('../../assets/images/user/user_icon.png')}
                         />
                     </View>
+                    
                 </View>
                 <TouchableOpacity
                     style={styles.TouchableChatItemArea} 
@@ -55,7 +56,7 @@ export default class ChatListItem extends Component{
                                 }
                                 
                             </View>
-                            <Text style={styles.colorGray}>
+                            <Text style={[styles.colorGray, {marginBottom: 10}]}>
                                 {this.props.content}
                             </Text>
                         </View>
@@ -73,7 +74,7 @@ export default class ChatListItem extends Component{
 
 const styles = StyleSheet.create({
     boxChatItem: {
-        padding: 10,
+        marginTop: 1,
         flexDirection: "row",
     },
     colorBlack:{
@@ -85,23 +86,28 @@ const styles = StyleSheet.create({
     userName:{
         fontWeight: "bold",
         color: "#000",
-        marginRight: 10
+        marginRight: 10,
+        marginBottom: 6,
+        fontSize: 15
     },
     imgBoxChatItem: {
         flex: 1,
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "center"
     },
     TouchableChatItemArea:{
-        flex: 5
+        flex: 4
     },
     containerMessageInfo:{
         flexDirection: "row",
+        paddingTop: 10,
+        paddingRight: 10,
+        paddingBottom: 10,
         borderBottomWidth: 1,
         borderBottomColor: "#EEEEEE"
     },
     contentBoxChatItem:{
         flex: 4,
-        marginBottom: 10
     },
     dateBoxChatItem: {
         flex: 1
@@ -111,8 +117,7 @@ const styles = StyleSheet.create({
         height: 50,
         borderWidth: 1,
         borderColor: "#9E9E9E",
-        borderRadius: 100/2,
-        padding: 3
+        borderRadius: 100/2
     },
     userIcon:{
         maxWidth: "100%",

@@ -111,7 +111,7 @@ export default class ChatListContainer extends Component{
                                     this.setState({
                                         markedMessages: []
                                     })
-                                    Vibration.vibrate(500)
+                                    Vibration.vibrate(100)
                                 }}
                             />
                         </View>
