@@ -1,40 +1,88 @@
 import React, { Component } from 'react';
-import { Vibration, Alert, View, StyleSheet, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { 
+    Vibration, 
+    Alert, 
+    View, 
+    StyleSheet, 
+    Text, 
+    Image, 
+    TouchableHighlight, 
+    TouchableOpacity, 
+    Modal 
+} from 'react-native';
 import { Icon, Avatar } from 'react-native-elements'
 export default class ChatListItem extends Component{
     state={
-        marked: !this.props.clearMark
+        marked: this.props.isMark,
+        modalVisible: false,
+        markMode: this.props.markMode
+    }
+    _onPressIconUser(){
+        if(this.state.markMode){
+            this.state.marked ? this.desMark() : this.mark();
+        }else{
+            this.setState({
+                modalVisible: true
+            })
+        }
+        
     }
     _onPressChatItem(){
-        Alert.alert(
-            "Conversation with " + this.props.userName
-        )
+        if(this.state.markMode){
+            this.state.marked ? this.desMark() : this.mark();
+        }else{
+            this.props.navigation.navigate("ChatDetail")
+        }
     }
-    /* clearMark(){
-        this.setState({
-            marked: false
-        })
-    } */
+    desMark(){
+        Vibration.vibrate(50)
+        this.props.onDesMark(this.props.id);
+    }
+    mark(){
+        Vibration.vibrate(50)
+        this.props.onLongPress(this.props.id);
+    }
     _onLongPressChatItem(){
-        this.setState({
-            marked: true
-        })
-        Vibration.vibrate(100)
-        this.props.onLongPress(this.props.userName);       
+        this.mark()
     }
     render(){
         return(
             <View style={[styles.boxChatItem, {backgroundColor: this.state.marked ? "rgba(0,0,0,0.04)": "rgba(255,255,255,1)"}]}>
+                <Modal
+                    transparent={true}
+                    visible={this.state.modalVisible}
+                    animationType="fade"
+                    onRequestClose={() => {
+                        this.setState({
+                            modalVisible: false
+                        })
+                    }}
+                >
+                    <View style={styles.containerModalIconUser}>
+                        <View style={styles.containerModalImageIconUser}>
+                            <Image
+                                style={{width: "100%", height: "100%"}}
+                                resizeMode="contain"
+                                source={require('../../assets/images/user/user_icon.png')}
+                            />
+                        </View>
+                    </View>
+                </Modal>
                 <View style={styles.imgBoxChatItem}>
-                    <View style={styles.containerImageUserIcon}>
+                    <TouchableOpacity
+                        activeOpacity={0.5}
+                        style={styles.containerImageUserIcon}
+                        onPress={this._onPressIconUser.bind(this)}
+                        onLongPress={this._onLongPressChatItem.bind(this)}
+                    >
                         <Image
                             style={styles.userIcon}
                             source={require('../../assets/images/user/user_icon.png')}
                         />
-                    </View>
-                    
+                    </TouchableOpacity>
                 </View>
                 <TouchableOpacity
+                    activeOpacity={0.5}
                     style={styles.TouchableChatItemArea} 
                     onPress={this._onPressChatItem.bind(this)}
                     onLongPress={this._onLongPressChatItem.bind(this)}
@@ -73,6 +121,17 @@ export default class ChatListItem extends Component{
 }
 
 const styles = StyleSheet.create({
+    containerModalIconUser:{
+        flex: 1,
+        backgroundColor:'rgba(0,0,0,0.5)',
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    containerModalImageIconUser:{
+        backgroundColor: "#fff",
+        width: 200,
+        height: 200
+    },
     boxChatItem: {
         marginTop: 1,
         flexDirection: "row",

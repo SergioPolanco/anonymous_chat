@@ -6,7 +6,8 @@ import {
     StyleSheet, 
     Text,
     FlatList, 
-    TextInput 
+    TextInput,
+    ScrollView
 } from 'react-native';
 import { Icon } from 'react-native-elements'
 import ChatListItem from './chatListItem';
@@ -74,16 +75,25 @@ var dummyChatList = [
 
 export default class ChatListContainer extends Component{
     state={
+        chatList: dummyChatList,
         text: "",
-        markedMessages: [],
+        markedMessages: []
     }
-    _onLongPressChatItem(userName){
+    _onLongPressChatItem = (id)=> {
         let markedMessages = this.state.markedMessages.slice();
-        markedMessages.push(userName)
+        markedMessages.push(id)
         this.setState({
             markedMessages: markedMessages
         })
         //Alert.alert(this.state.markedMessages[0])
+    }
+    _desMarkMessage = (id) => {
+        let markedMessages = this.state.markedMessages.slice();
+        let index = markedMessages.indexOf(id);
+        markedMessages.splice(index, 1);
+        this.setState({
+            markedMessages: markedMessages
+        })
     }
     render(){
         return(
@@ -111,7 +121,7 @@ export default class ChatListContainer extends Component{
                                     this.setState({
                                         markedMessages: []
                                     })
-                                    Vibration.vibrate(100)
+                                    Vibration.vibrate(50)
                                 }}
                             />
                         </View>
@@ -122,8 +132,8 @@ export default class ChatListContainer extends Component{
                                 color='#2196F3'
                                 onPress={() => {
                                     let message = this.state.markedMessages.length == 1 ?
-                                        "Just pinned the conversation with " + this.state.markedMessages.join():
-                                        "Just pinned the conversations with the following users: " + this.state.markedMessages.join()
+                                        "Just pinned " + this.state.markedMessages.length + " message":
+                                        "Just pinned " + this.state.markedMessages.length + " messages"
                                     this.setState({
                                         markedMessages: []
                                     })
@@ -136,8 +146,8 @@ export default class ChatListContainer extends Component{
                                 color='#2196F3'
                                 onPress={() => {
                                     let message = this.state.markedMessages.length == 1 ?
-                                        "Just marked as not viewed the conversation with " + this.state.markedMessages.join():
-                                        "just marked as not viewed the conversations with the following users: " + this.state.markedMessages.join()
+                                        "Just marked as not viewed " + this.state.markedMessages.length + " message":
+                                        "just marked as not viewed " + this.state.markedMessages.length + " messages"
                                     
                                     this.setState({
                                         markedMessages: []
@@ -151,8 +161,8 @@ export default class ChatListContainer extends Component{
                                 color='#2196F3'
                                 onPress={() => {
                                     let message = this.state.markedMessages.length == 1 ?
-                                        "Just deleted the conversation with " + this.state.markedMessages.join():
-                                        "Just deleted the conversations with the following users: " + this.state.markedMessages.join()
+                                        "Just deleted " + this.state.markedMessages.length + " message":
+                                        "Just deleted " + this.state.markedMessages.length + 'messages'
                                     this.setState({
                                         markedMessages: []
                                     })
@@ -165,15 +175,19 @@ export default class ChatListContainer extends Component{
                 }
                 <FlatList
                     style={styles.containerChatList}
-                    data={dummyChatList}
-                    extraData={this.state}
+                    data={this.state.chatList}
+                    extraData={this.state.markedMessages}
                     renderItem={({item}) => (
                         <ChatListItem 
+                            key={uuid()}
+                            id={item.key}
                             userName={item.userName} 
                             content={item.content} 
                             date={item.date}
-                            clearMark={this.state.markedMessages.length == 0 ? true: false}
-                            onLongPress={(userName)=>this._onLongPressChatItem(userName)}
+                            isMark={chatIsMark(this.state.markedMessages, item.key)}
+                            markMode={this.state.markedMessages.length==0 ? false : true}
+                            onLongPress={this._onLongPressChatItem}
+                            onDesMark={this._desMarkMessage}
                         />
                     )}
                 />
@@ -232,3 +246,13 @@ const styles = StyleSheet.create({
         height: 40
     }
 });
+
+
+function chatIsMark(markedMessages, messageId) {
+    for(let item of markedMessages){
+        if(item == messageId){
+            return true
+        }
+    }
+    return false
+}
