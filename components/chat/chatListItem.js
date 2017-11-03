@@ -31,7 +31,7 @@ export default class ChatListItem extends Component{
         if(this.state.markMode){
             this.state.marked ? this.desMark() : this.mark();
         }else{
-            this.props.navigation.navigate("ChatDetail")
+            this.props.navigator.navigate("ChatDetail", {conversationId: 'Test'})
         }
     }
     desMark(){

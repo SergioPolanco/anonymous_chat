@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
-import Home from '../screens/home'
-import ChatDetail from '../screens/chatDetail'
+import Home from '../screens/home/home'
+import ChatDetail from '../screens/chatDetail/chatDetail'
 
 const RootNavigator = StackNavigator(
     {
@@ -13,6 +13,7 @@ const RootNavigator = StackNavigator(
         },
         ChatDetail: {
             screen: ChatDetail,
+            path: 'chat/:conversationId',
             navigationOptions: {
                 headerTitle: 'Chat',
             },

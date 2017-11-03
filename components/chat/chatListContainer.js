@@ -188,6 +188,7 @@ export default class ChatListContainer extends Component{
                             markMode={this.state.markedMessages.length==0 ? false : true}
                             onLongPress={this._onLongPressChatItem}
                             onDesMark={this._desMarkMessage}
+                            navigator={this.props.navigator}
                         />
                     )}
                 />

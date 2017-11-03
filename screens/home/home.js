@@ -6,11 +6,11 @@
 
 import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, Button } from 'react-native';
-import ChatListContainer from '../components/chat/chatListContainer'
-import ConfigContainer from '../components/config/configContainer'
-import GroupListContainer from '../components/group/groupListContainer'
+import ChatListContainer from '../../components/chat/chatListContainer'
+import ConfigContainer from '../../components/config/configContainer'
+import GroupListContainer from '../../components/group/groupListContainer'
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
-import RootNavigator  from '../navigator/navigator'
+import RootNavigator  from '../../navigator/navigator'
 
 const ChatListRoute = () => <ChatListContainer />;
 const GroupListRoute = () => <GroupListContainer/>;
@@ -31,7 +31,7 @@ export default class Home extends PureComponent {
   _renderHeader = props => <TabBar indicatorStyle={{ backgroundColor: "#fff" }} {...props} />;
 
   _renderScene = SceneMap({
-    '1': ChatListRoute,
+    '1': () => <ChatListContainer navigator={this.props.navigation}/>,
     '2': GroupListRoute,
     '3': ConfigRoute
   });
@@ -44,7 +44,7 @@ export default class Home extends PureComponent {
                     Anonymous Chat
                 </Text>
                 {/* <Button
-                    onPress={() => this.props.navigation.navigate("ChatDetail")}
+                    onPress={() => this.props.navigation.navigate("ChatDetail", {conversationId: 'Test'})}
                     title="Learn More"
                     color="#841584"
                     accessibilityLabel="Learn more about this purple button"
