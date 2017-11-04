@@ -8,6 +8,7 @@ import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, Button } from 'react-native';
 import ChatListContainer from '../../components/chat/chatListContainer'
 import ConfigContainer from '../../components/config/configContainer'
+import Header from '../../components/utils/header'
 import GroupListContainer from '../../components/group/groupListContainer'
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import RootNavigator  from '../../navigator/navigator'
@@ -39,17 +40,9 @@ export default class Home extends PureComponent {
   render() {
     return (
         <View style={styles.containerParent}>
-            <View style={styles.mainHeader}>
-                <Text style={styles.titleHeader}>
-                    Anonymous Chat
-                </Text>
-                {/* <Button
-                    onPress={() => this.props.navigation.navigate("ChatDetail", {conversationId: 'Test'})}
-                    title="Learn More"
-                    color="#841584"
-                    accessibilityLabel="Learn more about this purple button"
-                /> */}
-            </View>
+            <Header
+              title="Anonymous Chat"
+            />
             <TabViewAnimated
                 style={styles.container}
                 navigationState={this.state}
@@ -69,14 +62,4 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  mainHeader: {
-    justifyContent: "center",
-    backgroundColor: "#2196F3",
-    padding: 10
-  },
-  titleHeader: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 18
-  }
 });

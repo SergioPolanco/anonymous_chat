@@ -15,7 +15,7 @@ const RootNavigator = StackNavigator(
             screen: ChatDetail,
             path: 'chat/:conversationId',
             navigationOptions: {
-                headerTitle: 'Chat',
+                header: null,
             },
         }
     },
