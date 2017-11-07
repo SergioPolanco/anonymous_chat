@@ -10,17 +10,32 @@ export default class ItemMessage extends React.Component{
                         styles.containerMessage, 
                         {
                             alignSelf: this.props.authorId == 2 ? "flex-start" : "flex-end",
-                            backgroundColor: this.props.authorId == 2 ? "#ECF2F5" : "#2196F3"
+                            backgroundColor: this.props.authorId == 2 ? "#ECF2F5" : "#2196F3",
+                            borderColor: this.props.authorId == 2 ? "#ECF2F5" : "#2196F3"
                         }
                     ]}
                 >
                     <View style={styles.containerBody}>
-                        <Text style={{ color:  this.props.authorId == 2 ? "#666" : "#fff" }}>
+                        <Text 
+                            style={[
+                                styles.formatBodyText,
+                                { 
+                                    color:  this.props.authorId == 2 ? "#666" : "#fff" 
+                                }
+                            ]}
+                        >
                             {this.props.body}
                         </Text>
                     </View>
                     <View style={styles.containerDateTime}>
-                        <Text>
+                        <Text 
+                            style={[
+                                styles.formatDateTimeText,
+                                {
+                                    color: this.props.authorId == 2 ? "#9E9E9E" : "#F5F5F5"
+                                }
+                            ]}
+                        >
                             {this.props.dateTime}
                         </Text>
                     </View>
@@ -37,8 +52,7 @@ const styles = StyleSheet.create({
     containerMessage:{
         maxWidth: "90%",
         borderWidth: 1,
-        borderColor: "#666",
-        padding: 5,
+        padding: 3,
         flexDirection: "row",
         marginTop: 10,
         marginBottom: 10,
@@ -46,10 +60,23 @@ const styles = StyleSheet.create({
 
     },
     containerBody:{
+        maxWidth: "90%",
         marginRight: 10,
-        maxWidth: "90%"
+        alignSelf: 'stretch'
+    },
+    formatBodyText:{ 
+        textAlign: "justify",
+        alignSelf: 'stretch'
     },
     containerDateTime:{
-
+        width: "10%",
+        alignSelf: 'stretch',
+        //justifyContent: 'flex-end'
+    },
+    formatDateTimeText: {
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+        fontSize: 10
     }
 });
