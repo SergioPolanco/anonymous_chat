@@ -96,6 +96,12 @@ export default class ChatDetail extends Component{
     state = {
         text: ""
     }
+    componentDidMount() {
+        setTimeout(()=>{
+            this.refs.containerItemMessages.scrollToEnd()
+        }, 300)
+        
+    }
     render(){
         console.log(this.props.navigation)
         return(
@@ -104,12 +110,13 @@ export default class ChatDetail extends Component{
                     title={this.props.navigation.state.params.conversationId}
                 />
                 <KeyboardAvoidingView
-                    behavior="padding"
                     style={styles.containerFlatListMessages}
                 >
                     <FlatList 
                         style={styles.containerItemMessages}
                         data={messagesList}
+                        ref="containerItemMessages"
+                        //initialScrollIndex={11}
                         renderItem={({item}) => (
                             <ItemMessage
                                 key={uuid()}
