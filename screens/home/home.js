@@ -4,13 +4,13 @@
  * @flow
  */
 
-import React, { PureComponent } from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import React, {PureComponent} from 'react';
+import {View, StyleSheet, Text, Button} from 'react-native';
 import ChatListContainer from '../../components/chat/chatListContainer'
 import ConfigContainer from '../../components/config/configContainer'
 import Header from '../../components/utils/header'
 import GroupListContainer from '../../components/group/groupListContainer'
-import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
+import {TabViewAnimated, TabBar, SceneMap} from 'react-native-tab-view';
 import RootNavigator  from '../../navigator/navigator'
 
 const ChatListRoute = () => <ChatListContainer />;
@@ -29,14 +29,14 @@ export default class Home extends PureComponent {
 
   _handleIndexChange = index => this.setState({ index });
 
-  _renderHeader = props => <TabBar indicatorStyle={{ backgroundColor: "#fff" }} {...props} />;
+  _renderHeader = props => <TabBar indicatorStyle={{backgroundColor: "#fff"}} {...props} />;
 
   _renderScene = SceneMap({
     '1': () => <ChatListContainer navigator={this.props.navigation}/>,
     '2': GroupListRoute,
     '3': ConfigRoute
   });
-
+  
   render() {
     return (
         <View style={styles.containerParent}>

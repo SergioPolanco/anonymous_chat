@@ -13,7 +13,7 @@ import { Icon } from 'react-native-elements'
 import ChatListItem from './chatListItem';
 import FadeInView from '../utils/fadeInView'
 import uuid from 'uuid';
-//import IconVector from 'react-native-vector-icons/FontAwesome';
+
 var dummyChatList = [
     {   
         key: uuid(),
@@ -84,8 +84,7 @@ export default class ChatListContainer extends Component{
         markedMessages.push(id)
         this.setState({
             markedMessages: markedMessages
-        })
-        //Alert.alert(this.state.markedMessages[0])
+        });
     }
     _desMarkMessage = (id) => {
         let markedMessages = this.state.markedMessages.slice();
@@ -93,7 +92,7 @@ export default class ChatListContainer extends Component{
         markedMessages.splice(index, 1);
         this.setState({
             markedMessages: markedMessages
-        })
+        });
     }
     render(){
         return(
@@ -101,7 +100,7 @@ export default class ChatListContainer extends Component{
                 {
                     this.state.markedMessages.length == 0?
                     <View style={styles.containerSearchBox}>
-                        <Icon name="search" size={20} color="#9E9E9E" style={{ marginRight: 10 }} />
+                        <Icon name="search" size={20} color="#9E9E9E" style={{marginRight: 10}} />
                         <TextInput
                             style={styles.boxSearch}
                             placeholder={"Search"}
